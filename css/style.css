@@ -337,7 +337,7 @@ nav {
     background: url(../img/vb.svg)center/cover;
 }
 .img-svg path {
-    fill: #fbdbbf;
+    fill: green;
 }
 .copyright {
     margin-top: 45px;

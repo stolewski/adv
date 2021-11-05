@@ -55,9 +55,11 @@ $(document).ready(function(){
         $('html,body').stop().animate({ scrollTop: $('.contact').offset().top }, 1000);
         e.preventDefault();
       });
-      $('.ar').click(function () {
-        $(this).toggleClass('active').next().slideToggle();
-    })
+      $('.fa').click(function () {
+        $(this).next().slideToggle();
+        $(this).toggleClass('fa-chevron-down fa-chevron-up');
+    });
+
     $('.overlay').on('click', function(){
         $('.modal').removeClass('active');
     })

@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://stolewski.github.io/adv",
   "browserslist": [
     "last 2 versions"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -19,11 +23,11 @@
   "bugs": {
     "url": "https://github.com/stolewski/adv/issues"
   },
-  "homepage": "https://github.com/stolewski/adv#readme",
   "devDependencies": {
     "browser-sync": "^2.27.7",
     "browserlist": "^1.0.1",
     "del": "^6.0.0",
+    "gh-pages": "^3.2.3",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-concat": "^2.6.1",

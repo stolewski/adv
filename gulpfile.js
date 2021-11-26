@@ -19,7 +19,7 @@ function html() {
         collapseWhitespace: true,
       })
     )
-    .pipe(dest('dist'));
+    .pipe(dest('build'));
 }
 
 function scss() {
@@ -31,11 +31,11 @@ function scss() {
       })
     )
     .pipe(csso())
-    .pipe(dest('dist/css'));
+    .pipe(dest('build/css'));
 }
 
 function fonts() {
-  return src('src/fonts/*').pipe(dest('dist/fonts'));
+  return src('src/fonts/*').pipe(dest('build/fonts'));
 }
 
 function img() {
@@ -54,24 +54,24 @@ function img() {
         imagemin.svgo(),
       ])
     )
-    .pipe(dest('dist/img'));
+    .pipe(dest('build/img'));
 }
 
 function webConv() {
-  return src('dist/img/*.{png,jpg,jpeg}').pipe(webp()).pipe(dest('dist/img'));
+  return src('build/img/*.{png,jpg,jpeg}').pipe(webp()).pipe(dest('build/img'));
 }
 
 function scripts() {
-  return src('src/js/**.js').pipe(uglify()).pipe(dest('dist/js'));
+  return src('src/js/**.js').pipe(uglify()).pipe(dest('build/js'));
 }
 
 function clear() {
-  return del('dist');
+  return del('build');
 }
 
 function server() {
   sync.init({
-    server: './dist',
+    server: './build',
   });
 
   watch('src/**.html', series(html)).on('change', sync.reload);

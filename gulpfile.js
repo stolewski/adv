@@ -1,0 +1,109 @@
+const { src, dest, series, watch } = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
+const csso = require('gulp-csso');
+const htmlmin = require('gulp-htmlmin');
+const concat = require('gulp-concat');
+const newer = require('gulp-newer');
+const autoprefixer = require('gulp-autoprefixer');
+const imagemin = require('gulp-imagemin');
+const imgCompress = require('imagemin-jpeg-recompress');
+const uglify = require('gulp-uglify');
+const webp = require('gulp-webp');
+const del = require('del');
+const sync = require('browser-sync').create();
+
+function html() {
+  return src('src/**.html')
+    .pipe(
+      htmlmin({
+        collapseWhitespace: true,
+      })
+    )
+    .pipe(dest('dist'));
+}
+
+function scss() {
+  return src('src/css/**.scss')
+    .pipe(sass())
+    .pipe(
+      autoprefixer({
+        cascade: false,
+      })
+    )
+    .pipe(csso())
+    .pipe(dest('dist/css'));
+}
+
+function fonts() {
+  return src('src/fonts/*').pipe(dest('dist/fonts'));
+}
+
+function img() {
+  return src('src/img/*')
+    .pipe(newer('src/img/*'))
+    .pipe(
+      imagemin([
+        imgCompress({
+          loops: 4,
+          min: 70,
+          max: 80,
+          quality: 'high',
+        }),
+        imagemin.gifsicle(),
+        imagemin.optipng(),
+        imagemin.svgo(),
+      ])
+    )
+    .pipe(dest('dist/img'));
+}
+
+function webConv() {
+  return src('dist/img/*.{png,jpg,jpeg}').pipe(webp()).pipe(dest('dist/img'));
+}
+
+function scripts() {
+  return src('src/js/**.js').pipe(uglify()).pipe(dest('dist/js'));
+}
+
+function clear() {
+  return del('dist');
+}
+
+function server() {
+  sync.init({
+    server: './dist',
+  });
+
+  watch('src/**.html', series(html)).on('change', sync.reload);
+  watch('src/css/**.scss', series(scss)).on('change', sync.reload);
+  watch('src/img/**/*.*', series(img)).on('change', sync.reload);
+  watch('src/fonts/*.*', series(fonts)).on('change', sync.reload);
+  watch('src/js/*.*', series(scripts)).on('change', sync.reload);
+}
+
+exports.build = series(
+  clear,
+  scss,
+  img,
+  fonts,
+  webConv,
+  scripts,
+  html,
+  img,
+  webConv
+);
+exports.server = series(
+  clear,
+  img,
+  fonts,
+  webConv,
+  scss,
+  scripts,
+  html,
+  server
+);
+exports.fonts = fonts;
+exports.clear = clear;
+exports.img = img;
+exports.scripts = scripts;
+exports.webConv = webConv;

@@ -1,4 +1,8 @@
 @import 'scss/bootstrap-grid.scss';
+@import '../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '../../node_modules/@fortawesome/fontawesome-free/scss/regular.scss';
+@import '../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
+@import '../../node_modules/@fortawesome/fontawesome-free/scss/brands.scss';
 
 body {
   font-family: 'Istok Web', sans-serif;
@@ -68,11 +72,17 @@ a:hover {
 
 .call {
   display: block;
-  background: url(../img/phone-call.svg);
-  width: 25px;
-  height: 25px;
-  margin-left: auto;
+  padding: 7px 10px;
+  width: 235px;
+  color: #512c0c;
+  border: 1px solid #512c0c;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  background: none;
+  text-align: center;
 }
+
 nav {
   margin: 0 0 35px;
 }
@@ -124,13 +134,16 @@ nav {
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 50px;
+  text-align: center;
 }
 .trigger__wrapper {
   border-radius: 5px;
+  height: 500px;
   box-shadow: 0 0 32px 0 rgba(10, 10, 10, 0.08);
   padding: 50px 30px;
   margin-bottom: 50px;
   background: #fff;
+  position: relative;
 }
 .trigger__pic {
   margin: 0 auto;
@@ -171,11 +184,13 @@ nav {
   text-align: left;
 }
 .trigger__link {
+  position: absolute;
   background: url(../img/arrow.svg);
   width: 26px;
   height: 18px;
   display: block;
-  margin: 20px auto 0;
+  bottom: 40px;
+  left: 45px;
 }
 
 .interest {
@@ -206,6 +221,10 @@ nav {
 .acc__text {
   display: none;
   margin-top: 25px;
+  & a:hover {
+    text-decoration: underline;
+    opacity: 0.7;
+  }
 }
 .acc__text.active {
   display: block;
@@ -331,11 +350,13 @@ nav {
   fill: #fbdbbf;
   width: 48px;
   height: 38px;
+  background: url(../img/telegram.svg);
 }
 .social__fb {
   display: block;
   width: 38px;
   height: 38px;
+  background: url(../img/fb.svg);
 }
 .social__ig {
   display: block;

@@ -38,7 +38,7 @@ function fonts() {
   return src('src/fonts/*').pipe(dest('build/fonts'));
 }
 function webFonts() {
-  return src('src/webfonts/*').pipe(dest('build/fonts'));
+  return src('src/webfonts/*').pipe(dest('build/webfonts'));
 }
 
 function img() {

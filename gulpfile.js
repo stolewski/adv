@@ -37,6 +37,9 @@ function scss() {
 function fonts() {
   return src('src/fonts/*').pipe(dest('build/fonts'));
 }
+function webFonts() {
+  return src('src/webfonts/*').pipe(dest('build/fonts'));
+}
 
 function img() {
   return src('src/img/*')
@@ -77,7 +80,7 @@ function server() {
   watch('src/**.html', series(html)).on('change', sync.reload);
   watch('src/css/**.scss', series(scss)).on('change', sync.reload);
   watch('src/img/**/*.*', series(img)).on('change', sync.reload);
-  watch('src/fonts/*.*', series(fonts)).on('change', sync.reload);
+  watch('src/fonts/**/*.*', series(fonts)).on('change', sync.reload);
   watch('src/js/*.*', series(scripts)).on('change', sync.reload);
 }
 
@@ -86,6 +89,7 @@ exports.build = series(
   scss,
   img,
   fonts,
+  webFonts,
   webConv,
   scripts,
   html,
@@ -103,6 +107,7 @@ exports.server = series(
   server
 );
 exports.fonts = fonts;
+exports.webFonts = webFonts;
 exports.clear = clear;
 exports.img = img;
 exports.scripts = scripts;
